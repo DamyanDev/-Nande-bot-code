@@ -1,0 +1,26 @@
+module.exports = {
+    name: 'kick',
+    description: "this is a kick command", 
+    execute(message, args){
+        if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("Nah bro dont fucking try this!")
+            const user = message.mentions.users.first();
+        const member = message.guild.member(user);
+        if (user) {
+             if (member) {
+             member
+                  .kick(`Kicked ${user.tag}`)
+                  .then(() => {
+                       message.reply(`Kicked that bitch ${user.tag}`);
+                  })
+                  .catch(err => {
+                       message.reply("I wasn't able to kick that member.");
+                       console.error(err);
+                  });
+             } else {
+                  message.reply("That user is not in the server.");
+             }
+        } else {
+             message.reply("That not a person...");
+        }
+    }
+}
